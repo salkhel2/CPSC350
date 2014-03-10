@@ -9,6 +9,7 @@ CREATE TABLE users
 (
   firstname VARCHAR(25),
   lastname VARCHAR(25),
+  userID VARCHAR(35),
 
   city VARCHAR(25),
   state CHAR(2),
