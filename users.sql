@@ -9,12 +9,11 @@ CREATE TABLE users
 (
   firstname VARCHAR(25),
   lastname VARCHAR(25),
-  username VARCHAR(15),
-  password VARCHAR(15),
+
   city VARCHAR(25),
   state CHAR(2),
   school VARCHAR(30),
-  interests VARCHAR(160),
+  
   games VARCHAR(100)
 );
   
