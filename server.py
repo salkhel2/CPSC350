@@ -17,7 +17,7 @@ def report():
 
 @app.route('/thanks', methods=['POST'])
 def thanks():
-  return render_template('thanks.html', firstname=request.form['name'])
+  return render_template('thanks.html', firstname=request.form['firstname'])
 
 
 @app.route('/info')
