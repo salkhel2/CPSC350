@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
+import MySQLdb
+import utils, utils2
+
+game = ""
 
 @app.route('/')
 def mainIndex():
@@ -60,12 +64,13 @@ def games2():
 def list():
   db = utils.db_connect()
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-  query = 'select * from games'
+  query = "SELECT * from users WHERE game ='" + game + "'"
   cur.execute(query)
   rows = cur.fetchall()
     
-  return render_template('list.html', games=rows, selectedMenu='list')
+  return render_template('list.html', users=rows, selectedMenu='List')
 
 
 if __name__ == '__main__':
+  app.debug=True
   app.run(host='0.0.0.0', port=3000)

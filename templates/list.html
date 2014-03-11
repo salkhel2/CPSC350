@@ -1,9 +1,21 @@
 {% extends "layout.html" %}
-
+{% block content %}
 <h1>List of recent games</h1>
 
+<<<<<<< HEAD
+<table>
+  <tr><th>First Name</th><th>Last Name</th><th>School</th><th>City</th><th>State</th>></tr>
+  {% for entry in users %}
+  <tr><td>{{entry['firstname']}}</td><td>{{entry['lastname']}} {{entry['school']}}</td>
+    <td>{{entry['city']}}, {{entry['state']}}</td></tr>
+  {% endfor %}
+</table>
+
+
+=======
 {% block content %}
 <h1>Thanks for submitting your favorite game!  You chose {{game}}.</h1>
+>>>>>>> 5842d207c70424da4f31547c630f90346de01a2e
 
 <p>Here are some other people who also like {{game}}.</p>
 {% endblock %}
