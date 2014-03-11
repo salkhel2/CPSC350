@@ -13,6 +13,6 @@ CREATE TABLE users
   city VARCHAR(25),
   state VARCHAR(2),  
   game VARCHAR(30),
-  userID VARCHAR(35)
+  
 );
   
