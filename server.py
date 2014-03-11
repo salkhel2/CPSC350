@@ -15,9 +15,9 @@ def report():
   return render_template('report.html', selectedMenu='Report')
 
 
-@app.route('/thanks')
+@app.route('/thanks', methods=['POST'])
 def thanks():
-  return render_template('thanks.html')
+  return render_template('thanks.html', firstname=request.form['name'])
 
 
 @app.route('/info')
