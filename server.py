@@ -5,6 +5,17 @@ app = Flask(__name__)
 def mainIndex():
   return render_template('index.html')
 
+@app.route('/report')
+def report():
+  return render_template('report.html')
+  return render_template('report.html', selectedMenu='Report')
+
+
+@app.route('/thanks')
+def thanks():
+  return render_template('thanks.html')
+
+
 @app.route('/info')
 def info():
   return render_template('info.html', selectedMenu='Find Gamers')
