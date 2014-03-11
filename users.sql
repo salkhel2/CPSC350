@@ -8,15 +8,11 @@ USE userDB;
 CREATE TABLE users
 (
   firstname VARCHAR(25),
-  lastname VARCHAR(25),
-  userID VARCHAR(35),
-
-  city VARCHAR(25),
-  state CHAR(2),
+  lastname VARCHAR(25),  
   school VARCHAR(30),
-  
-  games VARCHAR(100)
+  city VARCHAR(25),
+  state CHAR(2),  
+  game VARCHAR(30),
+  userID VARCHAR(35)
 );
   
-INSERT INTO abductions VALUES ('2010-09-07', 'ann', 'russo', 'Cranford', 'NJ');
-INSERT INTO abductions VALUES ('2010-09-07', 'Paul', 'Jackman', 'Westfield', 'NJ');
