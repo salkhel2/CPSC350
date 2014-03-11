@@ -53,7 +53,7 @@ def games2():
 def list():
   db = utils.db_connect()
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-  query = "SELECT * from users WHERE game like '" + game + "'"
+  query = "SELECT * from users WHERE game ='" + game + "'"
   cur.execute(query)
   rows = cur.fetchall()
     
