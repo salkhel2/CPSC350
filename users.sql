@@ -11,7 +11,7 @@ CREATE TABLE users
   lastname VARCHAR(25),  
   school VARCHAR(30),
   city VARCHAR(25),
-  state CHAR(2),  
+  state VARCHAR(2),  
   game VARCHAR(30),
   userID VARCHAR(35)
 );
