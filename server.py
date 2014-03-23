@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 import MySQLdb
-import utils, utils2
+import utils
 
 game = ""
 
@@ -38,7 +38,9 @@ def info2():
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 
   query = "INSERT INTO users (firstname, lastname, school, city, state, game) VALUES ('";
-  query += request.form['firstname'] + "', '" + request.form['lastname'] + "', '" + school + "', '" + city + "', '" + state + "', '" + game + "')"
+  query += request.form['firstname'] + "', '" + request.form['lastname'] + "')"
+  
+  query = "INSERT INTO userInfo (school, city, state) VALUES ('" + school + "' , '" + city + "', '" + state + "')"
     
   print query
   cur.execute(query)
