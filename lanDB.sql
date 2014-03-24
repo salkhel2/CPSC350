@@ -1,5 +1,7 @@
+DROP DATABASE lanDB;
+
 CREATE DATABASE IF NOT EXISTS lanDB;
-GRANT ALL PRIVILEGES ON session.* to 'assist'@'localhost' identified by 'assist';
+GRANT ALL PRIVILEGES ON lanDB.* to 'assist'@'localhost' identified by 'assist';
 USE lanDB;
 
 --
