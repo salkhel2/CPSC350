@@ -72,6 +72,43 @@ def list():
     
   return render_template('list.html', users=rows, selectedMenu='List')
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	global currentUser
+	global zipcode
+	db = utils.db_connect()
+	cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+	# if user typed in a post ...
+	if request.method == 'POST':
+		print "HI"
+		session['username'] = MySQLdb.escape_string(request.form['username'])
+		currentUser = session['username']
+		session['pw'] =  MySQLdb.escape_string(request.form['pw'])
+		
+		query = "select zipcode from users WHERE username = '%s' AND password = SHA2('%s', 0)" % (session['username'], session['pw'])
+
+		print query
+		cur.execute(query)
+		r = cur.fetchone()
+		session['zipcode'] = r['zipcode']
+		zipcode = session['zipcode']
+		if cur.fetchone():
+			return redirect(url_for('mainIndex'))
+
+	return render_template('login.html', selectedMenu='Login', username = currentUser)
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+	global currentUser
+	global zipcode
+	currentUser = ''
+	zipcode = ''
+	session.pop('username', None)
+	session.pop('zipcode', None)
+	session.pop('pw', None)
+	
+	return redirect(url_for('mainIndex'))
+
 
 if __name__ == '__main__':
   app.debug=True
