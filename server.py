@@ -22,7 +22,13 @@ def thanks():
 
 @app.route('/info')
 def info():
-  return render_template('info.html', selectedMenu='Find Gamers')
+  db = utils.db_connect()
+  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+  query = 'select * from games'
+  cur.execute(query)
+  rows = cur.fetchall()
+  
+  return render_template('info.html', games=rows, selectedMenu='Find Gamers')
   
 @app.route('/info2', methods=['POST'])
 def info2():
