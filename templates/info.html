@@ -6,17 +6,17 @@
 					<table>
 					
           <select name="game">
-            <option>df</option>
+           
           {% for entry in games %}
             
             <option>{{entry['title']}}</option>
             
           {% endfor %}
           </select>
-          </td></tr>
+          
             
           <tr><td>&nbsp;</td><td><input type="submit" value="Find Gamers" /></td></tr>
 					</table>
 					
-					</form>
+          </form>
 {% endblock %}
