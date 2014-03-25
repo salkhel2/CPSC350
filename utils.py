@@ -3,7 +3,7 @@ import MySQLdb
 
 DATABASE='lanDB'
 DB_USER = 'assist'
-DB_PASSWORD = 'password'
+DB_PASSWORD = 'assist'
 HOST = 'localhost'
 
 def db_connect():

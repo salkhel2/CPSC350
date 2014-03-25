@@ -1,5 +1,7 @@
+DROP DATABASE lanDB;
+
 CREATE DATABASE IF NOT EXISTS lanDB;
-GRANT ALL PRIVILEGES ON session.* to 'assist'@'localhost' identified by 'assist';
+GRANT ALL PRIVILEGES ON lanDB.* to 'assist'@'localhost' identified by 'assist';
 USE lanDB;
 
 --
@@ -28,21 +30,21 @@ INSERT INTO games (id, title, rating) VALUES
 
 CREATE TABLE IF NOT EXISTS users(
   id INTEGER NOT NULL AUTO_INCREMENT,
-  userid INTEGER,
   firstname VARCHAR(25),
   lastname VARCHAR(25),
+  username VARCHAR(20),
+  password VARCHAR(25),
   game INTEGER,
   PRIMARY KEY (id),
-  FOREIGN KEY (game) REFERENCES game(id),
-  FOREIGN KEY (userid) REFERENCES userInfo(id)
+  FOREIGN KEY (game) REFERENCES game(id)
 )ENGINE=MyISAM  DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS userInfo(
-  id INTEGER NOT NULL AUTO_INCREMENT,
+  userid INTEGER,
   school VARCHAR(30),
   city VARCHAR(25),
   state VARCHAR(2),
-  PRIMARY KEY (id)
+  FOREIGN KEY (userid) REFERENCES users(id)
 )ENGINE=MyISAM  DEFAULT CHARSET=latin1;
   
 

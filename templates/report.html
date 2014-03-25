@@ -2,12 +2,12 @@
 
 {% block content %}
         <h1>New users sign-up page</h1>
-<form method = "post" action = "/thanks">
+<form method = "post" action = "/report2">
 					<table>
 					<tr><td>First Name</td><td><input type="text" id="firstname" name="firstname" /></td></tr>
 					<tr><td>Last Name</td><td><input type="text" id="lastname" name="lastname" /></td></tr>
           <tr><td>Username</td><td><input type="text" id="username" name="username" /></td></tr>
-          <tr><td>Email</td><td><input type="text" id="email" name="email" /></td></tr>
+          <tr><td>Password</td><td><input type="text" id="password" name="password" /></td></tr>
           <tr><td>Gender</td><td>
 					<select name="gender">
 					<option>M</option>
@@ -68,8 +68,17 @@
           <option>WY</option>
 					</select></td></tr>
           <tr><td>School</td><td><input type="text" id="school" name="school" /></td></tr>
-          <tr><td>Interests</td><td><input type="text" id="interests" name="interests" /></td></tr>
-          <tr><td>Games</td><td><input type="text" id="games" name="games" /></td></tr>
+          
+            <tr><td>Select your favorite game</td><td><select name="game">
+           
+          {% for entry in games %}
+            
+            <option>{{entry['title']}}</option>
+            
+          {% endfor %}
+           </select></td></tr>  
+            
+            
           <tr><td>&nbsp;</td><td><input type="submit" value="Done!" /></td></tr>
 					</table>
 					

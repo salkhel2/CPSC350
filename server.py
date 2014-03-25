@@ -1,8 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+
 app = Flask(__name__)
+app.secret_key = 'Zq4oA4Dqq3'
+
 import MySQLdb
 import utils
 
+currentUser = ''
 game = ""
 
 @app.route('/')
@@ -11,8 +15,51 @@ def mainIndex():
 
 @app.route('/report')
 def report():
-  return render_template('report.html')
-  return render_template('report.html', selectedMenu='Report')
+  db = utils.db_connect()
+  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+  query = 'select * from games'
+  cur.execute(query)
+  rows = cur.fetchall()
+  return render_template('report.html', games=rows, selectedMenu='Report')
+
+
+@app.route('/report2', methods=['POST'])
+def report2():
+  
+  firstname = request.form['firstname']
+  lastname = request.form['lastname']
+  username = request.form['username']
+  password = request.form['password']
+  school = request.form['school']
+  city = request.form['city']
+  state = request.form['state']
+  game = request.form['game']
+  
+  #query = "SELECT id from games where title = '" + game + "'"
+  #"(SELECT id from users where users.username ='" + username + "' AND users.password ='" + password + "')"
+    
+  db = utils.db_connect()
+  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+
+  query = "INSERT INTO users (firstname, lastname, username, password, game) VALUES ('";
+  query += request.form['firstname'] + "', '" + request.form['lastname'] + "', '" + username + "', '" + password + "', (SELECT id from games where games.title = '" + game + "'))"
+  print query
+  cur.execute(query)
+  db.commit()
+  
+  query = "INSERT INTO userInfo (userid, school, city, state) VALUES ((SELECT id from users where users.username ='" + username + "' AND users.password ='" + password + "'),'" + school + "' , '" + city + "', '" + state + "')"   
+  print query
+  cur.execute(query)
+  db.commit()
+    
+  return redirect(url_for('list'))
+
+
+
+
+
+
+
 
 
 @app.route('/thanks', methods=['POST'])
@@ -22,7 +69,13 @@ def thanks():
 
 @app.route('/info')
 def info():
-  return render_template('info.html', selectedMenu='Find Gamers')
+  db = utils.db_connect()
+  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+  query = 'select * from games'
+  cur.execute(query)
+  rows = cur.fetchall()
+  
+  return render_template('info.html', games=rows, selectedMenu='Find Gamers')
   
 @app.route('/info2', methods=['POST'])
 def info2():
@@ -52,14 +105,24 @@ def info2():
 
 @app.route('/games')
 def games():
-    
-    
+      
   return render_template('games.html', selectedMenu='Info')
+  
   
 @app.route('/games2', methods=['POST'])
 def games2():
+  gamename = request.form['gamename']
+  rating = request.form['rating']
   
-  return redirect(url_for('list'))
+  db = utils.db_connect()
+  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
+  
+  query = "insert into games (title, rating) VALUES ('" + gamename + "', '" + rating + "')"
+  print query
+  cur.execute(query)
+  db.commit()
+    
+  return redirect(url_for('info'))
   
   
 @app.route('/list')
