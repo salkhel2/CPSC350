@@ -54,6 +54,7 @@ def info2():
   
   firstname = request.form['firstname']
   lastname = request.form['lastname']
+  username = request.form['username']
   school = request.form['school']
   city = request.form['city']
   state = request.form['state']
@@ -61,9 +62,26 @@ def info2():
     
   db = utils.db_connect()
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-
-  query = "INSERT INTO users (firstname, lastname, school, city, state, game) VALUES ('";
-  query += request.form['firstname'] + "', '" + request.form['lastname'] + "')"
+  
+  query = "INSERT INTO games (title, rating) VALUES ('" + game + "' , '" + 10 + "')"
+  
+  print query
+  cur.execute(query)
+  db.commit()
+  
+  #This commented code is to get the id of the most recently entered game to assign it to the player's 'game' box.
+  #gameID = "SELECT id FROM games WHERE id = 'game'"
+  
+  #print gameID
+  #cur.execute(gameID)
+  #db.commit()
+  
+  query = "INSERT INTO users (firstname, lastname, username) VALUES ('";
+  query += request.form['firstname'] + "', '" + request.form['lastname'] + "', '" + request.form['username'] + "')"
+  
+  print query
+  cur.execute(query)
+  db.commit()
   
   query = "INSERT INTO userInfo (school, city, state) VALUES ('" + school + "' , '" + city + "', '" + state + "')"
     
