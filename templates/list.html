@@ -1,19 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
-<h1>List of recent games</h1>
+<h1>Here are some other people who share your game interest</h1>
 
 <table>
   <tr><th>First Name</th><th>Last Name</th><th>School</th><th>City</th><th>State</th>></tr>
   {% for entry in users %}
-  <tr><td>{{entry['firstname']}}</td><td>{{entry['lastname']}} {{entry['school']}}</td>
-    <td>{{entry['city']}}, {{entry['state']}}</td></tr>
+  <tr><td>{{entry['firstname']}}</td><td>{{entry['lastname']}}</td><td> {{entry['school']}}</td>
+    <td>{{entry['city']}}</td><td> {{entry['state']}}</td></tr>
   {% endfor %}
 </table>
 
 
 =======
 
-<h1>Thanks for submitting your favorite game!  You chose {{game}}.</h1>
+<h1>Thanks for submitting your favorite game!</h1>
 
 
 <p>Here are some other people who also like {{game}}.</p>
