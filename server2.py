@@ -8,11 +8,9 @@ game = ""
 @app.route('/')
 def mainIndex():
   return render_template('index.html')
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	global currentUser
-	global zipcode
 	db = utils.db_connect()
 	cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 	# if user typed in a post ...
@@ -20,19 +18,18 @@ def login():
 		print "HI"
 		session['username'] = MySQLdb.escape_string(request.form['username'])
 		currentUser = session['username']
-		session['pw'] =  MySQLdb.escape_string(request.form['pw'])
+		usersinfo['password'] =  MySQLdb.escape_string(request.form['password'])
 		
-		query = "select zipcode from users WHERE username = '%s' AND password = SHA2('%s', 0)" % (session['username'], session['pw'])
+		query = "select zipcode from users WHERE username = '%s' AND password = SHA2('%s', 0)" % (usersinfo['username'], usersinfo['password'])
 
 		print query
 		cur.execute(query)
 		r = cur.fetchone()
-		session['zipcode'] = r['zipcode']
-		zipcode = session['zipcode']
 		if cur.fetchone():
 			return redirect(url_for('mainIndex'))
 
 	return render_template('login.html', selectedMenu='Login', username = currentUser)
+
 
 @app.route('/report')
 def report():
@@ -118,12 +115,9 @@ def list():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
 	global currentUser
-	global zipcode
 	currentUser = ''
-	zipcode = ''
-	session.pop('username', None)
-	session.pop('zipcode', None)
-	session.pop('pw', None)
+	usersinfo.pop('username', None)
+	usersinfo.pop('password', None)
 	
 	return redirect(url_for('mainIndex'))
 
