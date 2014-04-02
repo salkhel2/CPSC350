@@ -12,27 +12,6 @@ game = ""
 @app.route('/')
 def mainIndex():
   return render_template('index.html')
-<<<<<<< HEAD
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-	global currentUser
-	db = utils.db_connect()
-	cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-	# if user typed in a post ...
-	if request.method == 'POST':
-		print "HI"
-		session['username'] = MySQLdb.escape_string(request.form['username'])
-		currentUser = session['username']
-		usersinfo['password'] =  MySQLdb.escape_string(request.form['password'])
-		
-		query = "select zipcode from users WHERE username = '%s' AND password = SHA2('%s', 0)" % (usersinfo['username'], usersinfo['password'])
-
-		print query
-		cur.execute(query)
-		r = cur.fetchone()
-		if cur.fetchone():
-			return redirect(url_for('mainIndex'))
-=======
 
 @app.route('/report')
 def report():
@@ -79,17 +58,8 @@ def report2():
 
 
 
->>>>>>> 31e4ff66c737ffbbb333f863d2173f331854e516
 
 
-<<<<<<< HEAD
-
-@app.route('/report')
-def report():
-  return render_template('report.html')
-  return render_template('report.html', selectedMenu='Report')
-=======
->>>>>>> 31e4ff66c737ffbbb333f863d2173f331854e516
 
 
 @app.route('/thanks', methods=['POST'])
@@ -109,39 +79,6 @@ def info():
   
 @app.route('/info2', methods=['POST'])
 def info2():
-<<<<<<< HEAD
-  
-  firstname = request.form['firstname']
-  lastname = request.form['lastname']
-  username = request.form['username']
-  school = request.form['school']
-  city = request.form['city']
-  state = request.form['state']
-  game = request.form['game']
-    
-  db = utils.db_connect()
-  cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
-  
-  query = "INSERT INTO games (title, rating) VALUES ('" + game + "' , '" + 10 + "')"
-  
-  print query
-  cur.execute(query)
-  db.commit()
-  
-  #This commented code is to get the id of the most recently entered game to assign it to the player's 'game' box.
-  #gameID = "SELECT id FROM games WHERE id = 'game'"
-  
-  #print gameID
-  #cur.execute(gameID)
-  #db.commit()
-  
-  query = "INSERT INTO users (firstname, lastname, username) VALUES ('";
-  query += request.form['firstname'] + "', '" + request.form['lastname'] + "', '" + request.form['username'] + "')"
-  
-  print query
-  cur.execute(query)
-  db.commit()
-=======
    
   global game
   game = request.form['game']
@@ -149,7 +86,6 @@ def info2():
   #db = utils.db_connect()
   #cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 
->>>>>>> 31e4ff66c737ffbbb333f863d2173f331854e516
   
 
     
@@ -222,18 +158,13 @@ def login():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
 	global currentUser
+	global zipcode
 	currentUser = ''
-<<<<<<< HEAD
-	usersinfo.pop('username', None)
-	usersinfo.pop('password', None)
-	
-=======
 	zipcode = ''
 	session.pop('username', None)
 	session.pop('zipcode', None)
 	session.pop('pw', None)
 
->>>>>>> 31e4ff66c737ffbbb333f863d2173f331854e516
 	return redirect(url_for('mainIndex'))
 
 
