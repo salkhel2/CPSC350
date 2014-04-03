@@ -133,17 +133,17 @@ def login():
 	# if user typed in a post ...
 	if request.method == 'POST':
 		print "HI"
-		session['username'] = MySQLdb.escape_string(request.form['username'])
-		currentUser = session['username']
-		session['pw'] =  MySQLdb.escape_string(request.form['pw'])
+		wlanUsersDB['username'] = MySQLdb.escape_string(request.form['username'])
+		currentUser = wlanUsersDB['username']
+		wlanUsersDB['password'] =  MySQLdb.escape_string(request.form['password'])
 
-		query = "select zipcode from users WHERE username = '%s' AND password = SHA2('%s', 0)" % (session['username'], session['pw'])
+		query = "select zipcode from users WHERE username = '%s' AND password = SHA2('%s', 0)" % (wlanUsersDB['username'], wlanUsersDB['password'])
 
 		print query
 		cur.execute(query)
 		r = cur.fetchone()
-		session['zipcode'] = r['zipcode']
-		zipcode = session['zipcode']
+		wlanUsersDB['zipcode'] = r['zipcode']
+		zipcode = wlanUsersDB['zipcode']
 		if cur.fetchone():
 			return redirect(url_for('mainIndex'))
 
@@ -155,9 +155,19 @@ def logout():
 	global zipcode
 	currentUser = ''
 	zipcode = ''
-	session.pop('username', None)
-	session.pop('zipcode', None)
-	session.pop('pw', None)
+	wlanUsersDB.pop('username', None)
+	wlanUsersDB.pop('zipcode', None)
+	wlanUsersDB.pop('passwrd', None)
+  wlanUsersDB.pop('firstname', None)
+  wlanUsersDB.pop('lastname', None)
+  wlanUsersDB.pop('email', None)
+  wlanUsersDB.pop('gender', None)
+  wlanUsersDB.pop('city', None)
+  wlanUsersDB.pop('state', None)  
+  wlanUsersDB.pop('school', None)
+  wlanUsersDB.pop('interests', None)
+  wlanUsersDB.pop('games', None)
+  
 
 	return redirect(url_for('mainIndex'))
 

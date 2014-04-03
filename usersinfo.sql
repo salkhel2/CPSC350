@@ -6,7 +6,7 @@ USE wlanUsersDB;
 
 CREATE TABLE users
 (
-  user_id INT NOT NULL AUTO_INCREMENT,
+  user_id INT(11) NOT NULL AUTO_INCREMENT,
   firstname VARCHAR(25) default NULL,
   lastname VARCHAR(25) default NULL,
   username VARCHAR(15) default NULL,
