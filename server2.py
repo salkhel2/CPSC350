@@ -31,6 +31,7 @@ def report2():
   username = request.form['username']
   password = request.form['password']
   school = request.form['school']
+  zipcode = request.form['zipcode']
   city = request.form['city']
   state = request.form['state']
   game = request.form['game']
@@ -41,8 +42,8 @@ def report2():
   db = utils.db_connect()
   cur = db.cursor(cursorclass=MySQLdb.cursors.DictCursor)
 
-  query = "INSERT INTO users (firstname, lastname, username, password, game) VALUES ('";
-  query += request.form['firstname'] + "', '" + request.form['lastname'] + "', '" + username + "', '" + password + "', (SELECT id from games where games.title = '" + game + "'))"
+  query = "INSERT INTO users (firstname, lastname, username, password, game, zipcode) VALUES ('";
+  query += request.form['firstname'] + "', '" + request.form['lastname'] + "', '" + username + "', '" + password + "', (SELECT id from games where games.title = '" + game + "'), '" + request.form['zipcode'] + "')"
   print query
   cur.execute(query)
   db.commit()
@@ -53,13 +54,6 @@ def report2():
   db.commit()
     
   return redirect(url_for('list'))
-
-
-
-
-
-
-
 
 
 @app.route('/thanks', methods=['POST'])

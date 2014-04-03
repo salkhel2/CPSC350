@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS users(
   username VARCHAR(20),
   password VARCHAR(25),
   game INTEGER,
+  zipcode INTEGER NOT NULL,
   PRIMARY KEY (id),
   FOREIGN KEY (game) REFERENCES game(id)
 )ENGINE=MyISAM  DEFAULT CHARSET=latin1;
